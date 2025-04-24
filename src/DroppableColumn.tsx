@@ -17,6 +17,8 @@ interface DroppableColumnProps {
 
 const DroppableColumn: React.FC<DroppableColumnProps> = ({ items, id, activeId }) => {
   const { setNodeRef } = useDroppable({ id });
+  const filteredItems = items.filter(item => item.id !== activeId);
+
 
   return (
     <div
@@ -31,8 +33,8 @@ const DroppableColumn: React.FC<DroppableColumnProps> = ({ items, id, activeId }
         width: "300px",
       }}
     >
-      <SortableContext items={items.map((item) => item.id)} strategy={rectSortingStrategy}>
-        {items.map((item) => (
+      <SortableContext items={filteredItems.map(item => item.id)} strategy={rectSortingStrategy}>
+        {filteredItems.map(item => (
           <Item key={item.id} item={item} />
         ))}
       </SortableContext>
